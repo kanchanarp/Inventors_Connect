@@ -242,7 +242,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form role="form">
+                            <form role="form" action="../control/userControl.php" method="post">
 										<img src="../images/ProfileBig.jpg" alt="User Avatar" height=150/>
 										<div class="form-group">
                                             <label>Update Profile Image</label>
@@ -290,24 +290,24 @@
                                                 <option>Chemical</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-default">Submit</button>
+                                        <button type="submit" class="btn btn-default" name="userSubmit">Submit</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
 									<hr>
-									<form role="form">
+									<form role="form" action="../control/userControl.php">
                                         <div class="form-group">
                                             <label>Current Password</label>
-                                            <input class="form-control" placeholder="Current Password">
+                                            <input class="form-control" placeholder="Current Password" name="oldPass">
                                         </div>
 										<div class="form-group">
                                             <label>New Password</label>
-                                            <input class="form-control" placeholder="New Password">
+                                            <input class="form-control" placeholder="New Password" name="password">
                                         </div>
 										<div class="form-group">
                                             <label>Confirm Password</label>
                                             <input class="form-control" placeholder="Confirm Password">
                                         </div>
-										<button type="submit" class="btn btn-default">Update Password</button>
+										<button type="submit" class="btn btn-default" name="passSubmit">Update Password</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                         </div>
