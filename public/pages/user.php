@@ -254,36 +254,36 @@
                                         </div>
 										<div class="form-group">
                                             <label>Firstname</label>
-                                            <input class="form-control" placeholder="First name">
+                                            <input class="form-control" placeholder="First name" name="fname">
                                         </div>
 										<div class="form-group">
                                             <label>Lastname</label>
-                                            <input class="form-control" placeholder="Last name">
+                                            <input class="form-control" placeholder="Last name" name="lname">
                                         </div>
 										<div class="form-group">
                                             <label>Contact No</label>
-                                            <input class="form-control" placeholder="Contact No">
+                                            <input class="form-control" placeholder="Contact No" name="contact">
                                         </div>
 										<div class="form-group">
                                             <label>Date of Birth</label>
-                                            <input class="form-control" placeholder="Date of Birth">
+                                            <input class="form-control" placeholder="Date of Birth" name="dob">
                                         </div>
                                         <div class="form-group">
                                             <label>User Access</label>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="">Inventor
+                                                    <input type="checkbox" value="" name="inv">Inventor
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="">Resource Person
+                                                    <input type="checkbox" value="" name="res">Resource Person
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Related Technologies</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="tech">
                                                 <option>Computer Science</option>
                                                 <option>Electronics</option>
                                                 <option>Mechanical</option>

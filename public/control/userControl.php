@@ -11,11 +11,8 @@ if(isset($_POST["passSubmit"])){
 }
 if(isset($_POST["userSubmit"])){
     $userHandler=new userHadler();
-    if(isset($_POST["oldPass"])&&isset($_POST["password"])){
-        $user=$userHandler->findUser($_SESSION["User"]);
-        if(password_check($_POST["oldPass"],$user["Password"])){
-            $userHandler->updatePassword($_SESSION["User"],$_POST["password"]);
-        }
+    if(isset($_POST["contact"])&&isset($_POST["tech"])){
+        $userHandler->updateInfo($_SESSION["User"],$_POST["contact"],$_POST["tech"],null);
     }
 }
 ?>
