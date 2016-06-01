@@ -242,11 +242,14 @@
                                     <form role="form">
 										<div class="form-group">
                                             <label>Upload an image</label>
-                                            <input type="file">
+                                            <input type="file" name="fileUploaded" id="fileUploaded">
+                                            <div class="progress progress-striped active" >
+                                                <div class="progress-bar" style="width:0%"></div>
+                                            </div>
                                         </div>
 										<div class="form-group">
                                             <label>Name</label>
-                                            <input class="form-control" placeholder="Name">
+                                            <input class="form-control" placeholder="Name" name="fname" id="filename">
                                         </div>
 										<div class="form-group">
                                             <label>General Permission</label>
@@ -268,13 +271,13 @@
                                         </div>
 										<div class="form-group">
                                             <label>Who can view?</label>
-                                            <input class="form-control" placeholder="Who can view?">
+                                            <input class="form-control" placeholder="Who can view?" name="viewPerm" id="viewPerm">
                                         </div>
 										<div class="form-group">
                                             <label>Who can download?</label>
-                                            <input class="form-control" placeholder="Who can download?">
+                                            <input class="form-control" placeholder="Who can download?" name="downPerm" id="downPerm">
                                         </div>
-                                        <button type="submit" class="btn btn-default">Upload</button>
+                                        <button type="submit" class="btn btn-default" onclick="uploadFileInv();"  name="submit">Upload</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                                 </div>
@@ -298,7 +301,15 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            
+                            <?php
+                            include_once "../../controller/imageHandler.class.php";
+                            $fileHandler=new imageHandler();
+                            $docList=$fileHandler->getImageList($_SESSION["User"]);
+                            foreach($docList as $doc){
+                                echo "<p><a href='".$doc["Path"]."/".$doc["Filename"]."'>".$doc["Filename"]."</a></p>";
+                            }
+
+                            ?>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -323,7 +334,65 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-	
+
+
+    <script>
+
+
+        $(document).on('submit','#test',function(e){
+            e.preventDefault();
+
+            $form = $(this);
+
+            uploadFileInv($form);
+
+        });
+
+        function uploadFileInv($form){
+            $form.find('.progress-bar').removeClass('progress-bar-success')
+                .removeClass('progress-bar-danger');
+
+            var formdata = new FormData($form[0]); //formelement
+            formdata.append("fname",document.getElementById("filename").value);
+            formdata.append("description",document.getElementById("description").value);
+            var permission =1;
+            if(document.getElementById("optionsRadios2").checked){
+                permission=2;
+            }
+            if(document.getElementById("optionsRadios3").checked){
+                permission=3;
+            }
+            formdata.append("permission",permission);
+            formdata.append("viewPerm",document.getElementById("viewPerm").value);
+            formdata.append("downPerm",document.getElementById("downPerm").value);
+            var request = new XMLHttpRequest();
+
+            //progress event...
+            request.upload.addEventListener('progress',function(e){
+                var percent = Math.round(e.loaded/e.total * 100);
+                $form.find('.progress-bar').width(percent+'%').html(percent+'%');
+            });
+
+            //progress completed load event
+            request.addEventListener('load',function(e){
+                $form.find('.progress-bar').addClass('progress-bar-success').html('upload completed....');
+            });
+
+            request.open('post', "../control/imageControl.php");
+            request.send(formdata);
+
+            $form.on('click','.cancel',function(){
+                request.abort();
+
+                $form.find('.progress-bar')
+                    .addClass('progress-bar-danger')
+                    .removeClass('progress-bar-success')
+                    .html('upload aborted...');
+            });
+
+        }
+
+    </script>
 
 </body>
 
