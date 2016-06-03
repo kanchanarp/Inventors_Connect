@@ -68,4 +68,14 @@ class messageHandler
         }
         return $conversationOb;
     }
+    public function getMessages($conversationId){
+        $messageDb=new messageDb();
+        $messageList=$messageDb->getMessageByConversation($conversationId);
+        $messageOb=null;
+        if($messageList!=null){
+            $conversationOb=new conversation(null,null);
+        }
+        return $messageList;
+    }
+
 }

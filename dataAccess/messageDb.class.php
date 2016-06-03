@@ -32,5 +32,17 @@ class messageDb
         $query="INSERT INTO message_image VALUES('{$conversationId}','{$messageId}','{$imageId}')";
         mysqli_query($connection,$query);
     }
+    public function getMessageByConversation($conversationId){
+        global $connection;
+        $conversationId=format_string($conversationId);
+        $query="SELECT * FROM message WHERE ConversationId='{$conversationId}'";
+        $msgList=mysqli_query($connection,$query);
+        confirm_query($msgList);
+        if($msgRetList=mysqli_fetch_assoc($msgList)){
+            return $msgRetList;
+        }else{
+            return null;
+        }
+    }
 
 }
