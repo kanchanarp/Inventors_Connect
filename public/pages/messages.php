@@ -35,7 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="../js/chat.js"></script>
 </head>
 
 <body>
@@ -377,7 +377,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <ul class="timeline">
+                            <ul class="timeline" id="chatBox">
                                 <li>
                                     <div class="timeline-badge"><i class="fa fa-check"></i>
                                     </div>
@@ -483,13 +483,14 @@
                         <!-- /.panel-body -->
 						<div class="panel-footer">
                             <div class="input-group">
-                                <form action="../control/messageControl.php" method="post">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat" name="submit">
-                                        Send
-                                    </button>
-                                </span>
+                                <form action="#" method="post" id="messageForm">
+                                    <input type="hidden" id="convId" name="conversationId"/>
+                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning btn-sm" id="btn-chat" name="submit">
+                                            Send
+                                        </button>
+                                    </span>
                                 </form>
                             </div>
                         </div>

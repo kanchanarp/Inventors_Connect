@@ -1,9 +1,19 @@
 <?php
-include_once "../../controller/messageHandler.class.php";
-if(isset($_POST["submit"])){
+    include_once "../../controller/messageHandler.class.php";
     $messageHandler=new messageHandler();
-    if(isset($_POST["discussion"])&&isset($_POST["password"])){
-        $messageID=$messageHandler->newMessage(null,$_POST["message"],$_SESSION["User"],null,null);
+    if(isset($_POST["message"])&&isset($_POST["conversationId"])){
+        $messageID=$messageHandler->newMessage($_POST["conversationId"],$_POST["message"],$_SESSION["User"],null,null);
+        echo "<li class=\"timeline-inverted\">
+                                    <div class=\"timeline-badge success\"><i class=\"fa fa-graduation-cap\"></i>
+                                    </div>
+                                    <div class=\"timeline-panel\">
+                                        <div class=\"timeline-heading\">
+                                            <h4 class=\"timeline-title\">".$_SESSION["User"]."</h4>
+                                        </div>
+                                        <div class=\"timeline-body\">
+                                            <p>".$_POST["message"]."</p>
+                                        </div>
+                                    </div>
+                                </li>";
     }
-}
 ?>
