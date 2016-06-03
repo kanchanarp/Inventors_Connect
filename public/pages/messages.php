@@ -232,7 +232,45 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-           
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Create New Conversation
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" method="post" action="#">
+                                        <div class="form-group">
+                                            <label>Conversation Name</label>
+                                            <input type="text" class="form-control" name="conversationName" id="conversationName"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Participants</label>
+                                            <select class="form-control" name="permission">
+                                                <option value="1">Public</option>
+                                                <option value="2">Only Me</option>
+                                                <option value="3">Resource Person Only</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-default" nmae="submit">Create New Conversation</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
             <div class="row">
 			<div class="col-lg-4">
                     

@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kanchanaR
- * Date: 03/06/2016
- * Time: 11:02
- */
+include_once "../../controller/messageHandler.class.php";
+$messageHandler=new messageHandler();
+if(isset($_POST["conversationName"])){
+    $conversationId=$messageHandler->newConversation($_POST["conversationName"],null);
+}
+?>
