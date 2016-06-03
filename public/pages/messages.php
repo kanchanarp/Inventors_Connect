@@ -242,7 +242,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="post" action="#">
+                                    <form role="form" method="post" action="../control/conversationControl.php">
                                         <div class="form-group">
                                             <label>Conversation Name</label>
                                             <input type="text" class="form-control" name="conversationName" id="conversationName"/>
