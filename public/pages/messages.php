@@ -315,7 +315,15 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat">
-                                <li class="left clearfix">
+                               <script>
+                                   function testClick(id){
+                                       var val=document.getElementById(id).value;
+                                       alert(val);
+                                   }
+
+                               </script>
+                                <li class="left clearfix"  onclick="testClick('test')">
+                                    <input type="hidden" value="10" id="test"/>
                                     <span class="chat-img pull-left">
                                         <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
                                     </span>
