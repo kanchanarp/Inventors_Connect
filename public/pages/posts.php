@@ -32,6 +32,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link href="../css/chosen.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -263,21 +265,8 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <textarea id="textarea" rows="1"></textarea>
-                                            <script type="text/javascript">
-                                                $('#textarea').textext({
-                                                    plugins : 'tags prompt focus autocomplete ajax arrow',
-                                                    tagsItems : [ 'Basic', 'JavaScript', 'PHP', 'Scala' ],
-                                                    prompt : 'Add one...',
-                                                    ajax : {
-                                                        url : '/manual/examples/data.json',
-                                                        dataType : 'json',
-                                                        cacheResults : true
-                                                    }
-                                                });
-                                            </script>
                                             <label>Select Related Technologies</label>
-                                            <select class="form-control" >
+                                            <select class="chosen-select" multiple style="width:300px;">
                                                 <option>Computer Science</option>
                                                 <option>Electronics</option>
                                                 <option>Mechanical</option>
@@ -548,6 +537,19 @@
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
+    <script src="../js/chosen.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
