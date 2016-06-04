@@ -317,7 +317,8 @@
                             <ul class="chat">
                                <script>
                                    function testClick(id){
-                                       var val=document.getElementById(id).value;
+                                       document.getElementById("convId").value=id;
+                                       var val=document.getElementById("convId").value;
                                        alert(val);
                                    }
 
