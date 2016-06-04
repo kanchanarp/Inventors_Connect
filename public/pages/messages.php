@@ -36,10 +36,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="../js/chat.js"></script>
+    <link href="../css/chosen.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
-
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -249,7 +250,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Participants</label>
-                                            <select class="form-control" name="permission">
+                                            <select class="chosen-select" name="permission" multiple style="width:300px;" >
                                                 <option value="1">Public</option>
                                                 <option value="2">Only Me</option>
                                                 <option value="3">Resource Person Only</option>
@@ -557,6 +558,20 @@
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="../js/chosen.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
