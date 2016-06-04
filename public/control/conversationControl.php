@@ -3,8 +3,7 @@ include_once "../../controller/messageHandler.class.php";
 $messageHandler=new messageHandler();
 if(isset($_POST["conversationName"])){
     $conversationId=$messageHandler->newConversation($_POST["conversationName"],null);
-    echo "<li class=\"left clearfix\"  onclick=\"testClick()\">
-                                    <input type=\"hidden\" value=\"".$conversationId."\" id=\"test\"/>
+    echo "<li class=\"left clearfix\"  onclick=\"testClick(".$conversationId.")\">
                                     <span class=\"chat-img pull-left\">
                                         <img src=\"../images/Profile.jpg\" alt=\"User Avatar\" class=\"img-circle\" />
                                     </span>
