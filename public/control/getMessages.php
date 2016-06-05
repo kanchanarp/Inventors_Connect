@@ -3,16 +3,19 @@
     $messageHandler=new messageHandler();
     $conversationId=null;
     $msgList=($messageHandler->getMessages($conversationId));
-    echo "<li class=\"timeline-inverted\">
+    foreach($msgList as $msg){
+        echo "<li class=\"timeline-inverted\">
             <div class=\"timeline-badge success\"><i class=\"fa fa-graduation-cap\"></i>
             </div>
             <div class=\"timeline-panel\">
                <div class=\"timeline-heading\">
-                  <h4 class=\"timeline-title\">Test Post</h4>
+                  <h4 class=\"timeline-title\">".$msg['Username']."</h4>
                </div>
                <div class=\"timeline-body\">
-                    <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
+                    <p>".$msg['Message']."</p>
                </div>
             </div>
            </li>";
+    }
+
 ?>

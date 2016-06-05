@@ -245,6 +245,7 @@
                         <div class="panel-heading">
                             <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
                         </div>
+
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
