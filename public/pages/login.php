@@ -75,7 +75,7 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <form role="form" action="../control/userControl.php" method="post">
+                        <form role="form" action="../control/userRegistration.php" method="post">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input class="form-control" placeholder="Username" name="uname">
