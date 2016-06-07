@@ -57,7 +57,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <input type="submit" name="submit" value="submit"><a href="#" class="btn btn-lg btn-success btn-block">Login</a>
+                                <input type="submit" name="submit" value="Login" class="btn btn-default">
                             </fieldset>
                         </form>
                     </div>
