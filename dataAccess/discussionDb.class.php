@@ -42,6 +42,13 @@ class discussionDb
         $discussion_set=mysqli_query($connection,$query);
         return $discussion_set;
     }
+    public function getDiscussionByTech($tech){
+        global $connection;
+        $tech=format_string($tech);
+        $query="SELECT * FROM discussion NATURAL JOIN taggedtech AND TechId='{$tech}' ORDER BY DiscussionId DESC";
+        $discussion_set=mysqli_query($connection,$query);
+        return $discussion_set;
+    }
 }
 
 ?>

@@ -30,6 +30,10 @@ class discussionHandler
         $discussionList=(new discussionDb())->getDiscussionByUser($username);
         return $discussionList;
     }
+    public function getDiscussionByTech($tech){
+        $discussionList=(new discussionDb())->getDiscussionByUser($username);
+        return $discussionList;
+    }
     public function getComments($discusiionId){
         $commentsList=(new commentDb())->getComments($discusiionId);
         return $commentsList;

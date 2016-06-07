@@ -298,6 +298,42 @@
                                         </div>
                                     </div>
                                 </li>
+                                <?php
+                                    include_once "../control/postControl.php";
+                                    $postList=getAllPostsToView();
+                                foreach($postList as $post){
+                                    echo "<li>
+                                        <div class=\"timeline-badge info\"><i class=\"fa fa-save\"></i>
+                                        </div>
+                                        <div class=\"timeline-panel\">
+                                            <div class=\"timeline-heading\">
+                                                <h4 class=\"timeline-title\">".$user["Subject"]."</h4>
+                                            </div>
+                                            <div class=\"timeline-body\">
+                                                <p>".$user["Description"]."</p>
+                                                <hr>
+                                                <div class=\"btn-group\">
+                                                    <button type=\"button\" class=\"btn btn-primary btn-sm dropdown-toggle\" data-toggle=\"dropdown\">
+                                                        <i class=\"fa fa-gear\"></i>  <span class=\"caret\"></span>
+                                                    </button>
+                                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                                        <li><a href=\"#\">Like</a>
+                                                        </li>
+                                                        <li><a href=\"#\">Comment</a>
+                                                        </li>
+                                                        <li><a href=\"#\">Contact</a>
+                                                        </li>
+                                                        <li class=\"divider\"></li>
+                                                        <li><a href=\"#\">Report post</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>";
+                                }
+
+                                ?>
                                 <li>
                                     <div class="timeline-badge info"><i class="fa fa-save"></i>
                                     </div>

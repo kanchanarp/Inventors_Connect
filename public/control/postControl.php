@@ -1,8 +1,20 @@
 <?php
 include_once "../../controller/discussionHandler.class.php";
+include_once "../../controller/userHadler.class.php";
 function getAllPosts(){
         $discussionHandler=new discussionHandler();
         return $discussionHandler->getDisscussionByUser($_SESSION["User"]);
+}
+function getAllPostsToView(){
+    $userHandler=new userHadler();
+    $discussionHandler=new discussionHandler();
+    $techList=$userHandler->getInvolvedTech($_SESSION["User"]);
+    $disList=array();
+    foreach($techList as $tech){
+        $dsListInt=$discussionHandler->getDiscussionByTech($tech);
+        $disList=$disList+$dsListInt;
+    }
+    return $disList;
 }
 if(isset($_POST["submit"])){
     $discussionHandler=new discussionHandler();

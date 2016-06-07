@@ -51,5 +51,10 @@ class userHadler{
 			header("Location:index.php");
 		}
 	}
+
+	public function getInvolvedTech($username){
+		$userdb=new userDb();
+		return $userdb->getInvolvedTech($username);
+	}
 }
 ?>

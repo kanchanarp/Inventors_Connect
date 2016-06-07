@@ -1,5 +1,4 @@
 <?php
-namespace app\db;
 include_once "technologyDb.class.php";
 require_once("$_SERVER[DOCUMENT_ROOT]/functions.php"); //Functions in functions.php are used to format strings
 class userDb{
@@ -99,6 +98,13 @@ class userDb{
 			$query="UPDATE user SET firstname='{$firstname}',lastname='{$lastname}',email='{$email}',isInvent='{$isInvent}',isResource='{$isResource}' WHERE username='{$username}'";
 			mysqli_query($connection,$query);
 		}
+	}
+	public function getInvolvedTech($username){
+		global $connection;
+		$username=format_string($username);
+		$query="SELECT TechId FROM involved AND Username='{$username}'";
+		$tech_set=mysqli_query($connection,$query);
+		return $tech_set;
 	}
 
 }
