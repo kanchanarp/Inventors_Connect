@@ -30,7 +30,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <link href="../css/chosen.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -63,12 +63,99 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+        <div class="row" style="align-content: center">
+            <div class="col-md-4 col-md-offset-4" >
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Create New User
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <form role="form" action="../control/userControl.php" method="post">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input class="form-control" placeholder="Username" name="uname">
+                            </div>
+                            <div class="form-group">
+                                <label>Firstname</label>
+                                <input class="form-control" placeholder="First name" name="fname">
+                            </div>
+                            <div class="form-group">
+                                <label>Lastname</label>
+                                <input class="form-control" placeholder="Last name" name="lname">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact No</label>
+                                <input class="form-control" placeholder="Contact No" name="contact">
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input class="form-control" placeholder="Date of Birth" name="dob">
+                            </div>
+                            <div class="form-group">
+                                <label>User Access</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="" name="inv">Inventor
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="" name="res">Resource Person
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Related Technologies</label><br>
+                                <select class="chosen-select" multiple name="tech" style="width:300px;">
+                                    <option>Computer Science</option>
+                                    <option>Electronics</option>
+                                    <option>Mechanical</option>
+                                    <option>Chemical</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input class="form-control" placeholder="New Password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input class="form-control" placeholder="Confirm Password">
+                            </div>
+                            <button type="submit" class="btn btn-default" name="userSubmit">Register</button>
+                            <button type="reset" class="btn btn-default">Reset</button>
+                        </form>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
+        <!-- /.row -->
     </div>
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
+    <script src="../js/chosen.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
