@@ -300,6 +300,21 @@ $_SESSION["User"]="test";
                                         </div>
                                     </div>
                                 </li>
+                                <script>
+                                    $(function(){
+                                        $(document).on("submit","#commentForm",function(){
+                                            var message=$.trim($("#btn-input").val());
+                                            var postid=$.trim($("#convId").val());
+                                            if(message!="" && conversationId!=""){
+                                                $.post("../control/commentControl.php",{message: message,postid: postid},function(data){
+                                                    $("#commentBody").append(data);
+                                                });
+                                            }else{
+                                                alert("No comment to add");
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <?php
                                 include_once "../control/postControl.php";
                                 include_once "../control/commentControl.php";
@@ -315,10 +330,10 @@ $_SESSION["User"]="test";
                                             </div>
                                             <div class=\"timeline-body\">
                                                 <p>".$post["Description"]."</p>
-                                                <hr>";
+                                                <hr><div class=\"timeline-panel\" id='commentBody'>";
                                     foreach($commentList as $cmnt){
                                         echo "
-                                                <div class=\"timeline-panel\">
+
                                                     <div class=\"timeline-heading\">
                                                         <h4 class=\"timeline-title\">".$cmnt["InitiatedBy"]."</h4>
                                                     </div>
@@ -326,10 +341,10 @@ $_SESSION["User"]="test";
                                                         <p>".$cmnt["Description"]."</p>
                                                         <hr>
                                                     </div>
-                                                </div>";
+                                                ";
                                     }
                                     echo "
-                                                <hr>
+                                                </div><hr>
                                                 <div class=\"btn-group\">
                                                     <button type=\"button\" class=\"btn btn-primary btn-sm dropdown-toggle\" data-toggle=\"dropdown\">
                                                         <i class=\"fa fa-gear\"></i>  <span class=\"caret\"></span>
@@ -339,7 +354,7 @@ $_SESSION["User"]="test";
                                                         </li>
                                                         <div class=\"panel-footer\">
                                                         <div class=\"input-group\">
-                                                            <form action=\"#\" method=\"post\" id=\"messageForm\">
+                                                            <form action=\"#\" method=\"post\" id=\"commentForm\">
                                                                 <input type=\"hidden\" id=\"postId\" name=\"postId\" value=".$post["DiscussionId"]."/>
                                                                 <input id=\"btn-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" name=\"message\" />
                                                                 <span class=\"input-group-btn\">
