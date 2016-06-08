@@ -301,18 +301,34 @@ $_SESSION["User"]="test";
                                     </div>
                                 </li>
                                 <?php
-                                    include_once "../control/postControl.php";
+                                include_once "../control/postControl.php";
+                                include_once "../control/commentControl.php";
                                     $postList=getAllPostsToView();
                                 foreach($postList as $post){
+                                    $commentList=getComments($post["DiscussionId"]);
                                     echo "<li>
                                         <div class=\"timeline-badge info\"><i class=\"fa fa-save\"></i>
                                         </div>
-                                        <div class=\"timeline-panel\">
+                                        <div class=\"timeline-panel\" style='overflow: scroll'>
                                             <div class=\"timeline-heading\">
-                                                <h4 class=\"timeline-title\">".$user["Subject"]."</h4>
+                                                <h4 class=\"timeline-title\">".$post["Subject"]."</h4>
                                             </div>
                                             <div class=\"timeline-body\">
-                                                <p>".$user["Description"]."</p>
+                                                <p>".$post["Description"]."</p>
+                                                <hr>";
+                                    foreach($commentList as $cmnt){
+                                        echo "
+                                                <div class=\"timeline-panel\">
+                                                    <div class=\"timeline-heading\">
+                                                        <h4 class=\"timeline-title\">".$cmnt["InitiatedBy"]."</h4>
+                                                    </div>
+                                                    <div class=\"timeline-body\">
+                                                        <p>".$cmnt["Description"]."</p>
+                                                        <hr>
+                                                    </div>
+                                                </div>";
+                                    }
+                                    echo "
                                                 <hr>
                                                 <div class=\"btn-group\">
                                                     <button type=\"button\" class=\"btn btn-primary btn-sm dropdown-toggle\" data-toggle=\"dropdown\">
@@ -324,7 +340,7 @@ $_SESSION["User"]="test";
                                                         <div class=\"panel-footer\">
                                                         <div class=\"input-group\">
                                                             <form action=\"#\" method=\"post\" id=\"messageForm\">
-                                                                <input type=\"hidden\" id=\"convId\" name=\"conversationId\"/>
+                                                                <input type=\"hidden\" id=\"postId\" name=\"postId\" value=".$post["DiscussionId"]."/>
                                                                 <input id=\"btn-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" name=\"message\" />
                                                                 <span class=\"input-group-btn\">
                                                                     <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\" name=\"submit\">
