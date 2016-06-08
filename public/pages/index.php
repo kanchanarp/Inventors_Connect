@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+session_start();
+$_SESSION["User"]="test";
  if(!isset($_SESSION["User"])){
      header("Location:login.php");
  }
@@ -319,8 +321,19 @@
                                                     <ul class=\"dropdown-menu\" role=\"menu\">
                                                         <li><a href=\"#\">Like</a>
                                                         </li>
-                                                        <li><a href=\"#\">Comment</a>
-                                                        </li>
+                                                        <div class=\"panel-footer\">
+                                                        <div class=\"input-group\">
+                                                            <form action=\"#\" method=\"post\" id=\"messageForm\">
+                                                                <input type=\"hidden\" id=\"convId\" name=\"conversationId\"/>
+                                                                <input id=\"btn-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" name=\"message\" />
+                                                                <span class=\"input-group-btn\">
+                                                                    <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\" name=\"submit\">
+                                                                        Comment
+                                                                    </button>
+                                                                </span>
+                                                            </form>
+                                                        </div>
+                                                        </div>
                                                         <li><a href=\"#\">Contact</a>
                                                         </li>
                                                         <li class=\"divider\"></li>
@@ -351,8 +364,20 @@
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="#">Like</a>
                                                     </li>
-                                                    <li><a href="#">Comment</a>
-                                                    </li>
+                                                    <div class="panel-footer">
+                                                        <div class="input-group">
+                                                            <form action="#" method="post" id="messageForm">
+                                                                <input type="hidden" id="convId" name="conversationId"/>
+                                                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" />
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-warning btn-sm" id="btn-chat" name="submit">
+                                                                        Comment
+                                                                    </button>
+                                                                </span>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
                                                     <li><a href="#">Contact</a>
                                                     </li>
                                                     <li class="divider"></li>
