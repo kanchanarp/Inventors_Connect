@@ -304,7 +304,7 @@ $_SESSION["User"]="test";
                                     $(function(){
                                         $(document).on("submit","#commentForm",function(){
                                             var message=$.trim($("#btn-input").val());
-                                            var postid=$.trim($("#convId").val());
+                                            var postid=$.trim($("#postId").val());
                                             if(message!="" && conversationId!=""){
                                                 $.post("../control/commentControl.php",{message: message,postid: postid},function(data){
                                                     $("#commentBody").append(data);
