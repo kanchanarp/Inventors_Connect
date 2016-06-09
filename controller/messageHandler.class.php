@@ -6,11 +6,11 @@
  * Date: 24/05/2016
  * Time: 18:28
  */
-require_once("../functions.php");
-require_once("../dataAccess/messageDb.class.php");
-require_once("../dataAccess/conversationDb.class.php");
-require_once("../domain/message.class.php");
-require_once("../domain/conversation.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/messageDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/conversationDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//domain/message.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//domain/conversation.class.php");
 class messageHandler
 {
     public function newConversation($conversationName,$participants){

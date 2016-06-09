@@ -1,7 +1,7 @@
 <?php
-include_once("$_SERVER[DOCUMENT_ROOT]/functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]/dataAccess/userDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]/domain/user.class.php");
+include_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/userDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//domain/user.class.php");
 class userHadler{
 	private $dbUser;
 

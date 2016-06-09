@@ -6,9 +6,9 @@
  * Date: 24/05/2016
  * Time: 19:46
  */
-require_once("../functions.php");
-require_once("../dataAccess/imageDb.class.php");
-require_once("../domain/image.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/imageDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//domain/image.class.php");
 class imageHandler
 {
     public function addImage($filename,$path,$owner,$description,$permission){

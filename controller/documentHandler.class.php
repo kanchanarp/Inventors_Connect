@@ -6,9 +6,9 @@
  * Date: 24/05/2016
  * Time: 19:35
  */
-require_once("../functions.php");
-require_once("../dataAccess/documentDb.class.php");
-require_once("../domain/document.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/documentDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]//domain/document.class.php");
 class documentHandler
 {
 
