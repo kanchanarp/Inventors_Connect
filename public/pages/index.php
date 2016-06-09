@@ -326,7 +326,7 @@ $_SESSION["User"]="test";
                                         </div>
                                         <div class=\"timeline-panel\" style='overflow: scroll'>
                                             <div class=\"timeline-heading\">
-                                                <h4 class=\"timeline-title\">".$post["Subject"]."</h4>
+                                                <h4 class=\"timeline-title\">".$post["Subject"]."-".$post["InitiatedBy"]."</h4>
                                             </div>
                                             <div class=\"timeline-body\">
                                                 <p>".$post["Description"]."</p>
