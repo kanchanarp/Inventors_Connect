@@ -70,7 +70,7 @@ class conversationDb
         $dbHandler=new dbHandler();
 		$connection=$dbHandler->getConnection();
         $conversationName=format_string($conversationName);
-        $query="SELECT ConversationId FROM conversation WHERE ConversationName='{$conversationName}' LIMIT 1";
+        $query="SELECT * FROM conversation WHERE ConversationName='{$conversationName}' LIMIT 1";
         $conversations=mysqli_query($connection,$query);
         confirm_query($conversations);
         $conversationList=array();

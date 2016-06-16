@@ -6,7 +6,6 @@
  * Date: 23/05/2016
  * Time: 00:18
  */
-include_once "$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/userDb.class.php";
 class dbHandler
 {
 	private static $connection=NULL;
@@ -30,7 +29,6 @@ class dbHandler
 		return self::$connection;
 	}
 }
-		$user=new userDb();
-		$us=$user->find_user_by_username("test");
+
 
 ?>

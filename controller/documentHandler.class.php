@@ -14,7 +14,7 @@ class documentHandler
 
     public function addDocment($filename,$path,$owner,$description,$permission){
         $documentDb=new documentDb();
-        $documentDb->addDocment($filename,$path,$owner,$description,$permission);
+        $document=$documentDb->addDocment($filename,$path,$owner,$description,$permission);
         $documentOb=null;
         if($document!=null){
             $documentOb=new document(1,$filename,$path,$owner,$permission,null,null);

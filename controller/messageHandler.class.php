@@ -62,11 +62,7 @@ class messageHandler
     public function getConversationByName($conversationName){
         $conversationDb=new conversationDb();
         $conversation=$conversationDb->findConversationByName($conversationName);
-        $conversationOb=null;
-        if($conversation!=null){
-            $conversationOb=new conversation($conversation["ConversationId"],null);
-        }
-        return $conversationOb;
+        return $conversation;
     }
     public function getMessages($conversationId){
         $messageDb=new messageDb();
