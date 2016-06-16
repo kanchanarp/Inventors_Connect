@@ -468,8 +468,8 @@
 							$(document).ready(function() {
 							  $.ajaxSetup({ cache: false }); 
 							  setInterval(function() {
-								$('#notice_div').load('../control/getMessages.php',{ConversationId:document.getElementById("ConvId").value});
-							  }, 3000); 
+								  $('#notice_div').load('../control/getMessages.php',{ConversationId:$.trim($("#convId").val())});
+							  }, 500);
 							});
 						</script>
 						<script type="text/javascript">

@@ -1,4 +1,8 @@
 <?php
+	if(session_status() !== PHP_SESSION_ACTIVE){
+		session_start();
+	}
+
     include_once "../../controller/messageHandler.class.php";
     $messageHandler=new messageHandler();
     $conversationId=$_POST["ConversationId"];
@@ -8,8 +12,12 @@
 	}else{
 		echo "<ul class=\"timeline\" id=\"chatBox\">";
 		foreach($msgList as $msg){
-			echo "<li class=\"timeline-inverted\">
-				<div class=\"timeline-badge success\"><i class=\"fa fa-comment\"></i>
+			if($msg['SentBy']==$_SESSION["User"]){
+				echo "<li class=\"timeline-inverted\">";
+			}else{
+				echo "<li>";
+			}
+			echo "<div class=\"timeline-badge success\"><i class=\"fa fa-comment\"></i>
 				</div>
 				<div class=\"timeline-panel\">
 				   <div class=\"timeline-heading\">
