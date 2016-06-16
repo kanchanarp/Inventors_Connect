@@ -6,9 +6,9 @@
  * Date: 24/05/2016
  * Time: 19:46
  */
-require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/imageDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/image.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/imageDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/image.class.php");
 class imageHandler
 {
     public function addImage($filename,$path,$owner,$description,$permission){
@@ -26,9 +26,9 @@ class imageHandler
         $imageDb->removeImage($imageId);
     }
 
-    public function rename($imageId,$filename){
+    public function renameImage($imageId,$filename){
         $imageDb=new imageDb();
-        $image=$imageDb->rename($imageId,$filename);
+        $image=$imageDb->renameImage($imageId,$filename);
         $imageOb=null;
         if($image!=null){
             $imageOb=new image($image["ImageId"],$filename,$image["Path"],$image["Owner"],$image["Permission"],null,null);

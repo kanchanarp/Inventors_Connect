@@ -6,18 +6,18 @@
  * Date: 24/05/2016
  * Time: 19:35
  */
-require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/documentDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/document.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/documentDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/document.class.php");
 class documentHandler
 {
 
     public function addDocment($filename,$path,$owner,$description,$permission){
         $documentDb=new documentDb();
-        $document=$documentDb->addDocment($filename,$path,$owner,$description,$permission);
+        $documentDb->addDocment($filename,$path,$owner,$description,$permission);
         $documentOb=null;
         if($document!=null){
-            $documentOb=new document($document["DocumentId"],$filename,$path,$owner,$permission,null,null);
+            $documentOb=new document(1,$filename,$path,$owner,$permission,null,null);
         }
         return $documentOb;
     }
@@ -27,9 +27,9 @@ class documentHandler
         $documentDb->removeDocument($documentId);
     }
 
-    public function rename($documentId,$filename){
+    public function renameDocument($documentId,$filename){
         $documentDb=new documentDb();
-        $document=$documentDb->rename($documentId,$filename);
+        $document=$documentDb->renameDocument($documentId,$filename);
         $documentOb=null;
         if($document!=null){
             $documentOb=new document($document["DocumentId"],$filename,$document["Path"],$document["Owner"],$document["Permission"],null,null);

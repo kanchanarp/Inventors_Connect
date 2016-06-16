@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+	if(session_status() !== PHP_SESSION_ACTIVE){
+		session_start();
+	}
+?>
 <head>
 
     <meta charset="utf-8">
@@ -173,7 +177,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class='form-control' placeholder="Search...">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
@@ -242,46 +246,76 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+							
                             <form role="form" action="../control/userControl.php" method="post">
 										<img src="../images/ProfileBig.jpg" alt="User Avatar" height=150/>
-										<div class="form-group">
+										<div class='form-group'>
                                             <label>Update Profile Image</label>
                                             <input type="file">
                                         </div>
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <p class="form-control-static">Username</p>
-                                        </div>
-										<div class="form-group">
-                                            <label>Firstname</label>
-                                            <input class="form-control" placeholder="First name" name="fname">
-                                        </div>
-										<div class="form-group">
-                                            <label>Lastname</label>
-                                            <input class="form-control" placeholder="Last name" name="lname">
-                                        </div>
-										<div class="form-group">
+										<?php 
+											include_once "../../controller/userHadler.class.php";
+
+											$userHandler=new userHadler();
+											$user=$userHandler->findUser($_SESSION["User"]);
+											echo "
+											<div class='form-group'>
+												<label>Username</label>
+												<p class='form-control-static'>.".$user["Username"]."</p>
+											</div>
+											";
+											echo "
+											<div class='form-group'>
+												<label>Firstname</label>
+												<input class='form-control' placeholder='First name' value=".$user["FirstName"]." name='fname'>
+											</div>
+											";
+											echo "
+											<div class='form-group'>
+												<label>Lastname</label>
+												<input class='form-control' placeholder='Last name' value=".$user["LastName"]." name='lname'>
+											</div>
+											";
+											echo "
+											<div class='form-group'>
+												<label>Email</label>
+												<input type='email' class='form-control' placeholder='Email' value=".$user["Email"]." name='email'>
+											</div>
+											";
+											echo "
+											<div class='form-group'>
+												<label>Date of Birth</label>
+												<input type='date' class='form-control' placeholder='Date of Birth' value=".$user["DateOfBirth"]." name='dob'>
+											</div>
+											";
+											echo "
+											<div class='form-group'>
+												<label>User Access</label>
+												<div class='checkbox'>
+													<label>
+														<input type='checkbox' value='1' name='inv' "; 
+														if($user["is_inventor"]==1){echo 'checked';}
+											echo "
+											>Inventor
+													</label>
+												</div>
+												<div class='checkbox'>
+													<label>
+														<input type='checkbox' value='1' name='res' "; 
+														if($user["is_res_person"]==1){echo 'checked';}
+											echo "
+											>Resource Person
+													</label>
+												</div>
+											</div>
+											";
+										?>
+										<div class='form-group'>
                                             <label>Contact No</label>
-                                            <input class="form-control" placeholder="Contact No" name="contact">
+                                            <input class='form-control' placeholder="Contact No" name="contact">
                                         </div>
-										<div class="form-group">
-                                            <label>Date of Birth</label>
-                                            <input class="form-control" placeholder="Date of Birth" name="dob">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>User Access</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="" name="inv">Inventor
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="" name="res">Resource Person
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
+                                        
+                                        <div class='form-group'>
                                             <label>Related Technologies</label><br>
                                             <select class="chosen-select" multiple name="tech" style="width:300px;">
                                                 <option>Computer Science</option>
@@ -294,18 +328,18 @@
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
 									<hr>
-									<form role="form" action="../control/userControl.php">
-                                        <div class="form-group">
+									<form role="form" action="../control/userControl.php" method="post">
+                                        <div class='form-group'>
                                             <label>Current Password</label>
-                                            <input class="form-control" placeholder="Current Password" name="oldPass">
+                                            <input type='password' class='form-control' placeholder="Current Password" name="oldPass">
                                         </div>
-										<div class="form-group">
+										<div class='form-group'>
                                             <label>New Password</label>
-                                            <input class="form-control" placeholder="New Password" name="password">
+                                            <input type='password' class='form-control' placeholder="New Password" name="password">
                                         </div>
-										<div class="form-group">
+										<div class='form-group'>
                                             <label>Confirm Password</label>
-                                            <input class="form-control" placeholder="Confirm Password">
+                                            <input type='password' class='form-control' placeholder="Confirm Password">
                                         </div>
 										<button type="submit" class="btn btn-default" name="passSubmit">Update Password</button>
                                         <button type="reset" class="btn btn-default">Reset</button>

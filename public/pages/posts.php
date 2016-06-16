@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+session_start();
+ if(!isset($_SESSION["User"])){
+     header("Location:login.php");
+ }
+?>
 <head>
 
     <meta charset="utf-8">
@@ -298,17 +303,20 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
-                                <script type="text/javascript">
-                                    function setDiscussion(var dis_id,var subject,var desc){
-                                        document.getElementById("postid").attrs("value",dis_id);
-                                        document.getElementById("subject").attrs("value",subject);
-                                        document.getElementById("discussion").attrs("value",subject);
-                                    }
+                                <script type='text/javascript'>
+								function setDiscussion(var dis_id,var subject,var desc){
+									alert(subject);
+                                        document.getElementById('postid').attrs('value',dis_id);
+                                        document.getElementById('subject').value=subject;
+                                        document.getElementById('discussion').attrs('value',subject);
+										alert(subject+" "+document.getElementById('subject').value);
+                                }
                                 </script>
                                 <?php
                                 include_once "../control/postControl.php";
                                     $list=getAllPosts();
                                     foreach($list as $li){
+										//echo "setDiscussion(\"".$li["DiscussionId"]."\",\"".$li["Subject"]."\",\"".$li["Description"]."\");";
                                         echo "
                                         <li>
                                             <div class=\"timeline-badge\"><i class=\"fa fa-check\"></i>
@@ -325,7 +333,7 @@
                                                             <i class=\"fa fa-gear\"></i>  <span class=\"caret\"></span>
                                                         </button>
                                                         <ul class=\"dropdown-menu\" role=\"menu\">
-                                                            <li><a href=\"#\" onClick=".setDiscussion($li["DiscussionId"],$li["Subject"],$li["Description"]).">Edit</a>
+                                                            <li><a href=\"javascript:;\" onClick=\"setDiscussion(\"".$li["DiscussionId"]."\",\"".$li["Subject"]."\",\"".$li["Description"]."\");\">Edit</a>
                                                             </li>
                                                             <li><a href=\"#\">Delete</a>
                                                             </li>

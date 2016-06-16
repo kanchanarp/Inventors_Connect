@@ -1,17 +1,18 @@
 <?php
-require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/discussionDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/commentDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/discussion.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/comment.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/discussionDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/commentDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/discussion.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/comment.class.php");
 class discussionHandler
 {
 
     public function createDisussion($subject,$description,$permission,$initiatedBy){
         $discussion=(new discussionDb())->create_discussion($subject,$description,$permission,$initiatedBy);
         $newDis=null;
+		var_dump($discussion);
         if($discussion!=null){
-            $newDis=(new discussion($discussion->disscussionId,$discussion->subject,$discussion->initiatedBy,$discussion->description,$discussion->permission,null,null,null));
+            $newDis=(new discussion($discussion["DiscussionId"],$discussion["Subject"],$discussion["InitiatedBy"],$discussion["Description"],$discussion["Permission"],null,null,null));
         }
         return $newDis;
     }
@@ -19,7 +20,7 @@ class discussionHandler
         $discussion=(new discussionDb())->update_discussion($discussionId,$subject,$description,$permission);
         $newDis=null;
         if($discussion!=null){
-            $newDis=(new discussion($discussion["DisscussionId"],$discussion["Subject"],$discussion["InitiatedBy"],$discussion["Description"],$discussion["Permission"],null,null,null));
+            $newDis=(new discussion($discussion["DiscussionId"],$discussion["Subject"],$discussion["InitiatedBy"],$discussion["Description"],$discussion["Permission"],null,null,null));
         }
         return $newDis;
     }
@@ -31,7 +32,7 @@ class discussionHandler
         return $discussionList;
     }
     public function getDiscussionByTech($tech){
-        $discussionList=(new discussionDb())->getDiscussionByUser($username);
+        $discussionList=(new discussionDb())->getDiscussionByTech($tech);
         return $discussionList;
     }
     public function getComments($discusiionId){

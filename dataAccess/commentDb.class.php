@@ -6,27 +6,34 @@
  * Date: 17/05/2016
  * Time: 18:05
  */
+ require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+ include_once "$_SERVER[DOCUMENT_ROOT]/ProjectSE/dbHandler.class.php";
 class commentDb
 {
+	
     public function newComment($discussionId,$description,$permission,$initiatedBy){
-        global $connection;
+		$dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $discussionId=format_string($discussionId);
         $description=format_string($description);
         $permission=format_string($permission);
         $initiatedBy=format_string($initiatedBy);
         $query="INSERT INTO comment(DiscussionId,InitiatedBy,Description,Permission) VALUES('{$discussionId}','{$initiatedBy}','{$description}','{$permission}')";
-        mysqli_query($connection,$query);
+		mysqli_query($connection,$query);
+		return mysqli_insert_id($connection);
     }
 
     public function removeComment($commentId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $commentId=format_string($commentId);
         $query="DELETE FROM comment WHERE CommentId='{$commentId}'";
         mysqli_query($connection,$query);
     }
 
     public function updateComment($commentId,$description,$permission){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $commentId=format_string($commentId);
         $description=format_string($description);
         $permission=format_string($permission);
@@ -35,7 +42,8 @@ class commentDb
     }
 
     public function commentDocument($commentId,$discussionId,$documentId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $discussionId=format_string($discussionId);
         $commentId=format_string($commentId);
         $documentId=format_string($documentId);
@@ -44,7 +52,8 @@ class commentDb
     }
 
     public function commentImage($commentId,$discussionId,$imageId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $discussionId=format_string($discussionId);
         $commentId=format_string($commentId);
         $imageId=format_string($imageId);
@@ -53,9 +62,16 @@ class commentDb
     }
 
     public function getComments($discussionId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $discussionId=format_string($discussionId);
         $query="SELECT * FROM comment WHERE DiscussionId='{$discussionId}'";
-        mysqli_query($connection,$query);
+        $comment_qry=mysqli_query($connection,$query);
+		confirm_query($comment_qry);
+		$comment=array();
+		while ($row = mysqli_fetch_assoc($comment_qry)) {
+			array_push($comment,$row);
+		}
+		return $comment;
     }
 }

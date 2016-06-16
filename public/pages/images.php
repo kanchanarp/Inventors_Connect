@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php session_start();
+?>
 <head>
 
     <meta charset="utf-8">
@@ -25,6 +26,8 @@
 
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-image-gallery.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -239,7 +242,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" enctype="multipart/form-data" method="post" action="#" id="test">
 										<div class="form-group">
                                             <label>Upload an image</label>
                                             <input type="file" name="fileUploaded" id="fileUploaded">
@@ -277,7 +280,7 @@
                                             <label>Who can download?</label>
                                             <input class="form-control" placeholder="Who can download?" name="downPerm" id="downPerm">
                                         </div>
-                                        <button type="submit" class="btn btn-default" onclick="uploadFileInv();"  name="submit">Upload</button>
+                                        <input type="submit" class="btn btn-default" value="Upload" onclick="uploadFileInv();"  name="submit"/>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                                 </div>
@@ -301,15 +304,52 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+						<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+							<!-- The container for the modal slides -->
+							<div class="slides"></div>
+							<!-- Controls for the borderless lightbox -->
+							<h3 class="title"></h3>
+							<a class="prev">‹</a>
+							<a class="next">›</a>
+							<a class="close">×</a>
+							<a class="play-pause"></a>
+							<ol class="indicator"></ol>
+							<!-- The modal dialog, which will be used to wrap the lightbox content -->
+							<div class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" aria-hidden="true">&times;</button>
+											<h4 class="modal-title"></h4>
+										</div>
+										<div class="modal-body next"></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default pull-left prev">
+												<i class="glyphicon glyphicon-chevron-left"></i>
+												Previous
+											</button>
+											<button type="button" class="btn btn-primary next">
+												Next
+												<i class="glyphicon glyphicon-chevron-right"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="links">
                             <?php
                             include_once "../../controller/imageHandler.class.php";
                             $fileHandler=new imageHandler();
                             $docList=$fileHandler->getImageList($_SESSION["User"]);
                             foreach($docList as $doc){
-                                echo "<p><a href='".$doc["Path"]."/".$doc["Filename"]."'>".$doc["Filename"]."</a></p>";
+								echo "<a href='".$doc["Path"]."/".$doc["Filename"]."' title='".$doc["Filename"]."' data-gallery>
+									<img src='".$doc["Path"]."/".$doc["Filename"]."' alt='Banana' style='height:100px'>
+								</a>";
                             }
 
                             ?>
+						</div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -354,7 +394,7 @@
 
             var formdata = new FormData($form[0]); //formelement
             formdata.append("fname",document.getElementById("filename").value);
-            formdata.append("description",document.getElementById("description").value);
+            //formdata.append("description",document.getElementById("description").value);
             var permission =1;
             if(document.getElementById("optionsRadios2").checked){
                 permission=2;
@@ -393,7 +433,8 @@
         }
 
     </script>
-
+<script src="../js/jquery.blueimp-gallery.min.js"></script>
+<script src="../js/bootstrap-image-gallery.min.js"></script>
 </body>
 
 </html>

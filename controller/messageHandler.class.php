@@ -6,11 +6,11 @@
  * Date: 24/05/2016
  * Time: 18:28
  */
-require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/messageDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/conversationDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/message.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/conversation.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/messageDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/conversationDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/message.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/conversation.class.php");
 class messageHandler
 {
     public function newConversation($conversationName,$participants){
@@ -77,5 +77,14 @@ class messageHandler
         }
         return $messageList;
     }
-
+	public function getConversations($username){
+		$conversationDb=new conversationDb();
+        $conversation=$conversationDb->findConversationByUser($username);
+		return $conversation;
+	}
+	public function findConversationParticipants($conversationId){
+		$conversationDb=new conversationDb();
+        $conversationList=$conversationDb->findConversationParticipants($conversationId);
+		return $conversationList;
+	}
 }

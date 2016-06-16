@@ -1,8 +1,13 @@
 <?php
 include_once "../../controller/messageHandler.class.php";
+if(session_status() !== PHP_SESSION_ACTIVE){
+	session_start();
+}
 $messageHandler=new messageHandler();
 if(isset($_POST["conversationName"])){
-    $conversationId=$messageHandler->newConversation($_POST["conversationName"],null);
+	$permission=$_POST["permission"];
+	array_push($permission,$_SESSION["User"]);
+    $conversationId=$messageHandler->newConversation($_POST["conversationName"],$permission);
     echo "<li class=\"left clearfix\"  onclick=\"testClick(".$conversationId.")\">
                                     <span class=\"chat-img pull-left\">
                                         <img src=\"../images/Profile.jpg\" alt=\"User Avatar\" class=\"img-circle\" />
@@ -16,5 +21,6 @@ if(isset($_POST["conversationName"])){
                                         </div>
                                     </div>
                                 </li>";
+	header("Location:../pages/messages.php");
 }
 ?>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 session_start();
-$_SESSION["User"]="test";
  if(!isset($_SESSION["User"])){
      header("Location:login.php");
  }
@@ -251,55 +250,7 @@ $_SESSION["User"]="test";
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
-                                            </p>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                                 <script>
                                     $(function(){
                                         $(document).on("submit","#commentForm",function(){
@@ -309,6 +260,7 @@ $_SESSION["User"]="test";
                                                 $.post("../control/commentControl.php",{message: message,postid: postid},function(data){
                                                     $("#commentBody").append(data);
                                                 });
+												return false;
                                             }else{
                                                 alert("No comment to add");
                                             }
@@ -318,19 +270,26 @@ $_SESSION["User"]="test";
                                 <?php
                                 include_once "../control/postControl.php";
                                 include_once "../control/commentControl.php";
-                                    $postList=getAllPostsToView();
+                                $postList=getAllPostsToView();
+								$var=1;
                                 foreach($postList as $post){
                                     $commentList=getComments($post["DiscussionId"]);
-                                    echo "<li>
-                                        <div class=\"timeline-badge info\"><i class=\"fa fa-save\"></i>
+									if($var==-1){
+										echo "<li class=\"timeline-inverted\">";
+									}else{
+										echo "<li>";
+									}
+                                    $var=$var*(-1);
+                                        echo "<div class=\"timeline-badge info\"><i class=\"fa fa-th\"></i>
                                         </div>
-                                        <div class=\"timeline-panel\" style='overflow: scroll'>
+                                        <div class=\"timeline-panel\" >
                                             <div class=\"timeline-heading\">
-                                                <h4 class=\"timeline-title\">".$post["Subject"]."-".$post["InitiatedBy"]."</h4>
+                                                <h4 class=\"timeline-title\">".$post["Subject"]."</h4>
+												<h5 class=\" text-muted\">".$post["InitiatedBy"]."</small>
                                             </div>
-                                            <div class=\"timeline-body\">
+                                            <div class=\"timeline-body\" >
                                                 <p>".$post["Description"]."</p>
-                                                <hr><div class=\"timeline-panel\" id='commentBody'>";
+                                                <hr><div class=\"timeline-panel\" id='commentBody' style='height:200px;overflow: scroll'>";
                                     foreach($commentList as $cmnt){
                                         echo "
 
@@ -354,8 +313,8 @@ $_SESSION["User"]="test";
                                                         </li>
                                                         <div class=\"panel-footer\">
                                                         <div class=\"input-group\">
-                                                            <form action=\"#\" method=\"post\" id=\"commentForm\">
-                                                                <input type=\"hidden\" id=\"postId\" name=\"postId\" value=".$post["DiscussionId"]."/>
+                                                            <form method=\"post\" id=\"commentForm\">
+                                                                <input type=\"hidden\" id=\"postId\" name=\"postId\" value=\"".$post["DiscussionId"]."\" />
                                                                 <input id=\"btn-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" name=\"message\" />
                                                                 <span class=\"input-group-btn\">
                                                                     <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\" name=\"submit\">
@@ -378,69 +337,7 @@ $_SESSION["User"]="test";
                                 }
 
                                 ?>
-                                <li>
-                                    <div class="timeline-badge info"><i class="fa fa-save"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Like</a>
-                                                    </li>
-                                                    <div class="panel-footer">
-                                                        <div class="input-group">
-                                                            <form action="#" method="post" id="messageForm">
-                                                                <input type="hidden" id="convId" name="conversationId"/>
-                                                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" />
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-warning btn-sm" id="btn-chat" name="submit">
-                                                                        Comment
-                                                                    </button>
-                                                                </span>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                    <li><a href="#">Contact</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Report post</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
                         <!-- /.panel-body -->

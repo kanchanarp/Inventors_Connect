@@ -11,7 +11,7 @@ $(function(){
 		}
 	});
 	function getMessages(){
-		$.get("../control/GetMessages.php",function(data){
+		$.get("../control/getMessages.php",function(data){
 			$.("#chatBox").html(data);
 		});
 	}

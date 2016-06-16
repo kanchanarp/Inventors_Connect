@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+session_start();
+ if(!isset($_SESSION["User"])){
+     header("Location:login.php");
+ }
+?>
 <head>
 
     <meta charset="utf-8">
@@ -34,7 +39,19 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	<style>
+	.pdfobject-container {
+	width: 100%;
+	max-width: 600px;
+	height: 600px;
+	margin: 2em 0;
+	}
+	.pdfobject { border: solid 1px #666; }
+	#results { padding: 1rem; }
+	.hidden { display: none; }
+	.success { color: #4F8A10; background-color: #DFF2BF; }
+	.fail { color: #D8000C; background-color: #FFBABA; }
+	</style>
 </head>
 
 <body>
@@ -307,14 +324,42 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
+					<div id="results" class="hidden"></div>
+					<div id="pdf"></div>
+					<div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Filename</th>
+                                            <th>Type</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            
                         <?php
                         include_once "../../controller/documentHandler.class.php";
                         $fileHandler=new documentHandler();
                         $docList=$fileHandler->getDocumentList($_SESSION["User"]);
+						//var_dump($docList);
                         foreach($docList as $doc){
-                            echo "<p><a href='".$doc["Path"]."/".$doc["Filename"]."'>".$doc["Filename"]."</a></p>";
+							//var_dump($doc);
+							$temp = explode(".", $doc['Filename']);
+							echo "<tr>";
+							echo "<td>".$temp[0]."</td>";
+							if(end($temp)=="pdf"){
+								echo "<td>PDF</td>";
+								echo "<td><a href='".$doc['Path']."/".$doc['Filename']."' class='embed-link'>Open ".$temp[0]." PDF file</a></td>";
+							}else{
+								echo "<td>".strtoupper(end($temp))."</td>";
+								echo "<td>File open unsupported</td>";
+							} 
+							echo "</tr>";
                         }
                         ?>
+                                    </tbody>
+                                </table>
+                            </div>
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -398,7 +443,38 @@
 
 </script>
 
+<script src="../js/pdfobject.min.js"></script>
+<script>
 
+	var clickHandler = function (e){
+
+	e.preventDefault();
+
+	var pdfURL = this.getAttribute("href");
+
+	var options = {
+	pdfOpenParams: {
+	navpanes: 0,
+	toolbar: 0,
+	statusbar: 0,
+	view: "FitV"
+	}
+	};
+
+	var myPDF = PDFObject.embed(pdfURL, "#pdf", options);
+
+	var el = document.querySelector("#results");
+
+	};
+
+	var a = document.querySelectorAll(".embed-link");
+
+	for(var i=0; i < a.length; i++){
+	a[i].addEventListener("click", clickHandler);
+	}
+
+
+</script>
 
 </body>
 

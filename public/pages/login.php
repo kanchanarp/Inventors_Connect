@@ -1,4 +1,6 @@
-
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
@@ -88,24 +90,28 @@
                                 <label>Lastname</label>
                                 <input class="form-control" placeholder="Last name" name="lname">
                             </div>
+							<div class="form-group">
+                                <label>Lastname</label>
+                                <input type="email" class="form-control" placeholder="Email" name="email">
+                            </div>
                             <div class="form-group">
                                 <label>Contact No</label>
                                 <input class="form-control" placeholder="Contact No" name="contact">
                             </div>
                             <div class="form-group">
                                 <label>Date of Birth</label>
-                                <input class="form-control" placeholder="Date of Birth" name="dob">
+                                <input type="date" class="form-control" placeholder="Date of Birth" name="dob">
                             </div>
                             <div class="form-group">
                                 <label>User Access</label>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="" name="inv">Inventor
+                                        <input type="checkbox" value="1" name="inv">Inventor
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="" name="res">Resource Person
+                                        <input type="checkbox" value="1" name="res">Resource Person
                                     </label>
                                 </div>
                             </div>
@@ -120,11 +126,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input class="form-control" placeholder="New Password" name="password">
+                                <input type="password" class="form-control" placeholder="New Password" name="password">
                             </div>
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input class="form-control" placeholder="Confirm Password">
+                                <input type="password" class="form-control" placeholder="Confirm Password">
                             </div>
                             <button type="submit" class="btn btn-default" name="userSubmit">Register</button>
                             <button type="reset" class="btn btn-default">Reset</button>

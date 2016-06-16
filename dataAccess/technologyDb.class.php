@@ -7,11 +7,13 @@
  * Time: 18:00
  */
 
-//require_once("../functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+ include_once "$_SERVER[DOCUMENT_ROOT]/ProjectSE/dbHandler.class.php";
 class technologyDb
 {
     public function addTechnology($keyword,$description){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $description=format_string($description);
         $keyword=format_string($keyword);
         $query="INSERT INTO technology(Description) VALUES('{$description}')";
@@ -21,7 +23,8 @@ class technologyDb
         mysqli_query($connection,$query1);
     }
     public function getTechByDescription($description){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $description=format_string($description);
         $query="SELECT TechId FROM technology WHERE Description='{$description}'";
         $tech_set=mysqli_query($connection,$query);
@@ -33,7 +36,8 @@ class technologyDb
         }
     }
     public function findTechnology($keyword){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $keyword=format_string($keyword);
         $query="SELECT TechId FROM technology_keyword WHERE Keyword='{$keyword}'";
         $tech_set=mysqli_query($connection,$query);

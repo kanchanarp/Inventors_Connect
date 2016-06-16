@@ -6,10 +6,13 @@
  * Date: 17/05/2016
  * Time: 16:56
  */
+ require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+  include_once "$_SERVER[DOCUMENT_ROOT]/ProjectSE/dbHandler.class.php";
 class messageDb
 {
     public function newMessage($conversationId,$message,$from){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $conversationId=format_string($conversationId);
         $message=format_string($message);
         $from=format_string($from);
@@ -17,7 +20,8 @@ class messageDb
         mysqli_query($connection,$query);
     }
     public function sendDocument($messageId,$conversationId,$documentId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $conversationId=format_string($conversationId);
         $messageId=format_string($messageId);
         $documentId=format_string($documentId);
@@ -25,7 +29,8 @@ class messageDb
         mysqli_query($connection,$query);
     }
     public function sendImage($messageId,$conversationId,$imageId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $conversationId=format_string($conversationId);
         $messageId=format_string($messageId);
         $imageId=format_string($imageId);
@@ -33,16 +38,17 @@ class messageDb
         mysqli_query($connection,$query);
     }
     public function getMessageByConversation($conversationId){
-        global $connection;
+        $dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
         $conversationId=format_string($conversationId);
         $query="SELECT * FROM message WHERE ConversationId='{$conversationId}'";
         $msgList=mysqli_query($connection,$query);
         confirm_query($msgList);
-        if($msgRetList=mysqli_fetch_assoc($msgList)){
-            return $msgRetList;
-        }else{
-            return null;
-        }
+        $messagesList=array();
+		while ($row = mysqli_fetch_assoc($msgList)) {
+			array_push($messagesList,$row);
+		}
+		return $messagesList;
     }
 
 }

@@ -6,9 +6,9 @@
  * Date: 24/05/2016
  * Time: 20:36
  */
-require_once("$_SERVER[DOCUMENT_ROOT]//functions.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//dataAccess/technologyDb.class.php");
-require_once("$_SERVER[DOCUMENT_ROOT]//domain/technology.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/functions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/dataAccess/technologyDb.class.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/technology.class.php");
 class technologyHandler
 {
     public function addTechnology($keyword,$description){

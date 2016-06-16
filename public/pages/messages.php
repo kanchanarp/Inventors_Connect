@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+	session_start();
+?>
 <head>
 
     <meta charset="utf-8">
@@ -35,7 +37,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="../js/chat.js"></script>
     <link href="../css/chosen.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -249,14 +250,25 @@
                                             <input type="text" class="form-control" name="conversationName" id="conversationName"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Participants</label>
-                                            <select class="chosen-select" name="permission" multiple style="width:300px;" >
-                                                <option value="1">Public</option>
-                                                <option value="2">Only Me</option>
-                                                <option value="3">Resource Person Only</option>
-                                            </select>
+                                            <label>Participants</label>                                           
+											<?php
+											
+												include_once "../../controller/userHadler.class.php";
+												$userHandler=new userHadler();
+												$userList=$userHandler->getAllUsers();
+												$currentUser=$userHandler->findUser($_SESSION["User"]);
+												$key = array_search($currentUser,$userList);
+												if($key!==false){
+													unset($userList[$key]);
+												}
+												echo "<select class=\"chosen-select\" name=\"permission[ ]\" multiple style=\"width:300px;\" >";
+												foreach($userList as $user){
+													echo "<option value=\"".$user["Username"]."\">".$user["FirstName"]." ".$user["LastName"]."</option>";
+												}
+												echo "</select>";
+											?>                                           
                                         </div>
-                                        <button type="submit" class="btn btn-default" nmae="submit">Create New Conversation</button>
+                                        <button type="submit" class="btn btn-default" name="submit">Create New Conversation</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                                 </div>
@@ -319,64 +331,35 @@
                                <script>
                                    function testClick(id){
                                        document.getElementById("convId").value=id;
-                                       var val=document.getElementById("convId").value;
-                                       alert(val);
+									   $('#notice_div').load('../control/getMessages.php',{ConversationId:id});
                                    }
-
                                </script>
-                                <li class="left clearfix"  onclick="testClick('test')">
-                                    <input type="hidden" value="10" id="test"/>
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
+							   <?php
+								
+								include_once "../../controller/messageHandler.class.php";
+								$messageHandler=new messageHandler();
+								$convList=$messageHandler->getConversations($_SESSION["User"]);
+								foreach($convList as $conv){
+									    echo "<li class=\"left clearfix\"  onclick=\"testClick(".$conv["ConversationId"].")\">
+                                    <span class=\"chat-img pull-left\">
+                                        <img src=\"../images/Profile.jpg\" alt=\"User Avatar\" class=\"img-circle\" />
                                     </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Kanchana Ruwnapathirana</strong><br/>
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
+                                    <div class=\"chat-body clearfix\">
+                                        <div class=\"header\">
+                                            <strong class=\"primary-font\">".$conv["ConversationName"]."</strong><br/>
+                                            <small class=\" text-muted\">
+                                                ";
+												$userList=$messageHandler->findConversationParticipants($conv["ConversationId"]);
+												foreach($userList as $user){
+													echo "<i class=\"fa fa-user fa-fw\"></i>";
+													echo $user["FirstName"]." ".$user["LastName"]."</br>";
+												}
+                                        echo"</small>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            
-                                            <strong class="pull-left primary-font">Melanka Saroad</strong><br/>
-											<small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Kanchana Ruwnapathirana</strong><br/>
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            
-                                            <strong class="pull-left primary-font">Melanka Saroad</strong><br/>
-											<small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                        </div>
-                                    </div>
-                                </li>
+                                </li>";
+								}
+							   ?>
                             </ul>
                         </div>
                         <!-- /.panel-body -->
@@ -423,115 +406,14 @@
                                 </ul>
                             </div>
                         </div>
+
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <ul class="timeline" id="chatBox">
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
-                                            </p>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge info"><i class="fa fa-save"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Like</a>
-                                                    </li>
-                                                    <li><a href="#">Comment</a>
-                                                    </li>
-                                                    <li><a href="#">Contact</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Report post</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="panel-body" id="notice_div">
                         </div>
                         <!-- /.panel-body -->
 						<div class="panel-footer">
                             <div class="input-group">
-                                <form action="#" method="post" id="messageForm">
+                                <form method="post" id="messageForm">
                                     <input type="hidden" id="convId" name="conversationId"/>
                                     <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" />
                                     <span class="input-group-btn">
@@ -579,14 +461,37 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript 
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>-->
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+						<script type="text/javascript">
+							$(document).ready(function() {
+							  $.ajaxSetup({ cache: false }); 
+							  setInterval(function() {
+								$('#notice_div').load('../control/getMessages.php',{ConversationId:document.getElementById("ConvId").value});
+							  }, 3000); 
+							});
+						</script>
+						<script type="text/javascript">
+							$(function(){
+								$(document).on("submit","#messageForm",function(){
+									var message=$.trim($("#btn-input").val());
+									var conversationId=$.trim($("#convId").val());
+									if(message!="" && conversationId!=""){
+										$.post("../control/messageControl.php",{message: message,conversationId: conversationId},function(data){
+											$("#chatBox").append(data);
+											$("#btn-input").val("");
+											var container = document.getElementById("notice_div");
+											var content = document.getElementById("chatBox");
+											container.scrollTop = content.getClientRects()[0].height;
+										});
+										return false;
+									}else{
+										alert("No message to send");
+									}
+								});
+							});
+						</script>
 </body>
 
 </html>

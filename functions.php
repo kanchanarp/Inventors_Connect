@@ -1,8 +1,9 @@
 <?php
-
+ include_once "$_SERVER[DOCUMENT_ROOT]/ProjectSE/dbHandler.class.php";
 //Format MySQL strings to parse characters such as '," an etc.
 function format_string($string){
-	global $connection;
+	$dbHandler=new dbHandler();
+	$connection=$dbHandler->getConnection();
 	$safe_string=mysqli_real_escape_string($connection,$string);
 	return $safe_string;
 }
