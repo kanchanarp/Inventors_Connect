@@ -37,16 +37,19 @@ class userHadler{
 	//Function to update password.
 	public function updatePassword($username,$password,$new_password){
 		if($this->dbUser->update_password($username,$password,$new_password)){
-			header("Location:index.php");
+			header("Location:../pages/user.php");
 		}
 	}
 	
 	//Function to update account information
-	public function updateInfo($username,$email,$name,$userRoles){
+	public function updateInfo($username,$email,$name,$userRoles,$techList){
 		$isInvent=$userRoles[0];
 		$isResource=$userRoles[1];
 		if($this->dbUser->update_user($username,$email,$name,$isInvent,$isResource)){
-			header("Location:index.php");
+            var_dump($techList);
+            if(!empty($techList)){$this->dbUser->insertTech($username,$techList);}
+
+			header("Location:../pages/user.php");
 		}
 	}
 

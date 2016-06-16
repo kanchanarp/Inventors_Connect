@@ -331,6 +331,10 @@
                                <script>
                                    function testClick(id){
                                        document.getElementById("convId").value=id;
+                                       $(".selectedImage").css('display', 'none');
+                                       var idStr="#img"+id;
+                                       document.getElementById("img"+id).src="../images/selected.png";
+                                       $(idStr).css('display', 'block');
 									   $('#notice_div').load('../control/getMessages.php',{ConversationId:id});
                                    }
                                </script>
@@ -342,7 +346,7 @@
 								foreach($convList as $conv){
 									    echo "<li class=\"left clearfix\"  onclick=\"testClick(".$conv["ConversationId"].")\">
                                     <span class=\"chat-img pull-left\">
-                                        <img src=\"../images/Profile.jpg\" alt=\"User Avatar\" class=\"img-circle\" />
+                                        <img class=\"img-circle selectedImage\" id='img".$conv["ConversationId"]."'' style='width:50px'/>
                                     </span>
                                     <div class=\"chat-body clearfix\">
                                         <div class=\"header\">

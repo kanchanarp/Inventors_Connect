@@ -248,11 +248,6 @@
                         <div class="panel-body">
 							
                             <form role="form" action="../control/userControl.php" method="post">
-										<img src="../images/ProfileBig.jpg" alt="User Avatar" height=150/>
-										<div class='form-group'>
-                                            <label>Update Profile Image</label>
-                                            <input type="file">
-                                        </div>
 										<?php 
 											include_once "../../controller/userHadler.class.php";
 
@@ -261,7 +256,7 @@
 											echo "
 											<div class='form-group'>
 												<label>Username</label>
-												<p class='form-control-static'>.".$user["Username"]."</p>
+												<p class='form-control-static'>".$user["Username"]."</p>
 											</div>
 											";
 											echo "
@@ -273,7 +268,7 @@
 											echo "
 											<div class='form-group'>
 												<label>Lastname</label>
-												<input class='form-control' placeholder='Last name' value=".$user["LastName"]." name='lname'>
+												<input class='form-control' placeholder='Last name' value='".$user["LastName"]."' name='lname'>
 											</div>
 											";
 											echo "
@@ -317,7 +312,7 @@
                                         
                                         <div class='form-group'>
                                             <label>Related Technologies</label><br>
-                                            <select class="chosen-select" multiple name="tech" style="width:300px;">
+                                            <select class="chosen-select" multiple name="tech[ ]" style="width:300px;">
                                                 <?php
                                                 require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/controller/technologyHandler.class.php");
                                                 $techHandler=new technologyHandler();
@@ -389,124 +384,7 @@
                         <!-- /.panel-body -->
                     </div>
                     
-                    <div class="chat-panel panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-comments fa-fw"></i>
-                            Chat
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-chevron-down"></i>
-                                </button>
-                                <ul class="dropdown-menu slidedown">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-refresh fa-fw"></i> Refresh
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-check-circle fa-fw"></i> Available
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-times fa-fw"></i> Busy
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-clock-o fa-fw"></i> Away
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <ul class="chat">
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Kanchana Ruwnapathirana</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            This is a test message. This will be the UI overview of the messages when the system is finalized and the messaging facility is incorporated.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                            <strong class="pull-right primary-font">Melanka Saroad</strong>
-                                        </div>
-                                        <p>
-                                            This is a test message. This will be the UI overview of the messages when the system is finalized and the messaging facility is incorporated.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Kanchana Ruwnapathirana</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            This is a test message. This will be the UI overview of the messages when the system is finalized and the messaging facility is incorporated.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="../images/Profile.jpg" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
-                                            <strong class="pull-right primary-font">Melanka Saroad</strong>
-                                        </div>
-                                        <p>
-                                            This is a test message. This will be the UI overview of the messages when the system is finalized and the messaging facility is incorporated.
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.panel-body -->
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
-                    <!-- /.panel .chat-panel -->
+
                 </div>
                 <!-- /.col-lg-4 -->
             </div>

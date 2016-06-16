@@ -267,7 +267,7 @@ session_start();
                                         </div>
                                         <div class="form-group">
                                             <label>Select Related Technologies</label>
-                                            <select class="chosen-select" multiple style="width:300px;">
+                                            <select class="chosen-select" multiple style="width:300px;" name="tech[ ]">
                                                 <?php
                                                 require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/controller/technologyHandler.class.php");
                                                 $techHandler=new technologyHandler();

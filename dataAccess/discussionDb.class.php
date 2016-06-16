@@ -27,8 +27,18 @@ class discussionDb
             mysqli_query($connection,$query);
 			return self::getDiscussionByID(mysqli_insert_id($connection));
     }
+    public function insertTech($discussionId,$techList){
+        $dbHandler=new dbHandler();
+        $connection=$dbHandler->getConnection();
+        $query="INSERT INTO taggedtech VALUES";
+        foreach($techList as $tech){
+            $query=$query."('{$discussionId}','{$tech}'),";
+        }
+        $query=rtrim($query, ",");
+        mysqli_query($connection,$query);
+    }
     public function update_discussion($discussionId,$subject,$description,$permission){
-        if(!find_user_by_username($subject)){
+        if(self::getDiscussionByID($discussionId)){
             $dbHandler=new dbHandler();
 			$connection=$dbHandler->getConnection();
             $discussionId=format_string($discussionId);
@@ -38,7 +48,7 @@ class discussionDb
             $query="UPDATE discussion SET Subject='{$subject}',Description='{$description}',Permission='{$permission}' WHERE DiscussionId='{$discussionId}'";
             mysqli_query($connection,$query);
         }
-        return find_user_by_username($subject);
+        return self::getDiscussionByID($discussionId);
     }
     public function delete_discussion($discussionId){
         if(!find_user_by_username($discussionId)){

@@ -15,8 +15,15 @@ if(isset($_POST["passSubmit"])){
 if(isset($_POST["userSubmit"])){
     $userHandler=new userHadler();
     if(isset($_POST["contact"])&&isset($_POST["tech"])){
+
+        if(!isset($_POST["res"])){
+            $_POST["res"]=0;
+        }
+        if(!isset($_POST["inv"])){
+            $_POST["inv"]=0;
+        }
 		$userRoles=array($_POST["inv"],$_POST["res"]);
-        $userHandler->updateInfo($_SESSION["User"],$_POST["email"],$_POST["fname"]+" "+$_POST["lname"],$userRoles);
+        $userHandler->updateInfo($_SESSION["User"],$_POST["email"],$_POST["fname"]." ".$_POST["lname"],$userRoles,$_POST["tech"]);
     }
 }
 ?>

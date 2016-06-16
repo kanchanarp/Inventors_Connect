@@ -7,8 +7,10 @@ require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/domain/comment.class.php");
 class discussionHandler
 {
 
-    public function createDisussion($subject,$description,$permission,$initiatedBy){
-        $discussion=(new discussionDb())->create_discussion($subject,$description,$permission,$initiatedBy);
+    public function createDisussion($subject,$description,$permission,$initiatedBy,$techList){
+        $discussionDb=new discussionDb();
+        $discussion=$discussionDb->create_discussion($subject,$description,$permission,$initiatedBy);
+        if(!empty($techList)){$discussionDb->insertTech($discussion["DiscussionId"],$techList);}
         $newDis=null;
 		var_dump($discussion);
         if($discussion!=null){

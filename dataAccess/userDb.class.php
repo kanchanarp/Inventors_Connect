@@ -41,6 +41,16 @@ class userDb{
 		}
 		return $this->find_user_by_username($username);
 	}
+	public function insertTech($username,$techList){
+		$dbHandler=new dbHandler();
+		$connection=$dbHandler->getConnection();
+		$query="INSERT INTO involvedin VALUES";
+		foreach($techList as $tech){
+			$query=$query."('{$username}','{$tech}'),";
+		}
+		$query=rtrim($query, ",");
+		mysqli_query($connection,$query);
+	}
 	
 	//Add new technologies to users list
 	public function addTechnologies($username,$technologies){
@@ -105,9 +115,11 @@ class userDb{
 			$email=format_string($email);
 			$isInvent=format_string($isInvent);
 			$isResource=format_string($isResource);
-			$query="UPDATE user SET firstname='{$firstname}',lastname='{$lastname}',email='{$email}',isInvent='{$isInvent}',isResource='{$isResource}' WHERE username='{$username}'";
-			mysqli_query($connection,$query);
+			$query="UPDATE user SET firstname='{$firstname}',lastname='{$lastname}',email='{$email}',is_inventor={$isInvent},is_res_person={$isResource} WHERE username='{$username}'";
+			var_dump($query);
+            mysqli_query($connection,$query);
 		}
+        return $this->find_user_by_username($username);
 	}
 	public function getInvolvedTech($username){
 		$dbHandler=new dbHandler();
