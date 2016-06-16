@@ -257,10 +257,6 @@ session_start();
                                             <label>Your post here</label>
                                             <textarea class="form-control" rows="3" name="discussion" id="discussion"></textarea>
                                         </div>
-										<div class="form-group">
-                                            <label>Attach a file/image</label>
-                                            <input type="file">
-                                        </div>
                                         <div class="form-group">
                                             <label>Who can view this?</label>
                                             <select class="form-control" name="permission">
@@ -272,13 +268,17 @@ session_start();
                                         <div class="form-group">
                                             <label>Select Related Technologies</label>
                                             <select class="chosen-select" multiple style="width:300px;">
-                                                <option>Computer Science</option>
-                                                <option>Electronics</option>
-                                                <option>Mechanical</option>
-                                                <option>Chemical</option>
+                                                <?php
+                                                require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/controller/technologyHandler.class.php");
+                                                $techHandler=new technologyHandler();
+                                                $techList=$techHandler->getTechList();
+                                                foreach($techList as $tech){
+                                                    echo "<option value='".$tech["TechId"]."'>".$tech["Description"]."</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-default" nmae="submit">Post</button>
+                                        <button type="submit" class="btn btn-default" name="submit">Post</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                                 </div>
@@ -345,187 +345,7 @@ session_start();
                                         ";
                                     }
                                 ?>
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
-                                            </p>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge info"><i class="fa fa-save"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-                                            <hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Test Post</h4>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>This is a sample text post. The user can post his discussion in textual form or any other legible form in this area. This area shows the user the posts that are visible to him or her.</p>
-											<hr>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Edit</a>
-                                                    </li>
-                                                    <li><a href="#">Delete</a>
-                                                    </li>
-                                                    <li><a href="#">Change Privacy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-										</div>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
                         <!-- /.panel-body -->

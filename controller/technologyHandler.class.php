@@ -33,4 +33,8 @@ class technologyHandler
         }
         return $technologyOb;
     }
+    public function getTechList(){
+        $technologyDb=new technologyDb();
+        return $technologyDb->getTechList();
+    }
 }

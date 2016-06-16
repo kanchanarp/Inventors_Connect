@@ -318,10 +318,14 @@
                                         <div class='form-group'>
                                             <label>Related Technologies</label><br>
                                             <select class="chosen-select" multiple name="tech" style="width:300px;">
-                                                <option>Computer Science</option>
-                                                <option>Electronics</option>
-                                                <option>Mechanical</option>
-                                                <option>Chemical</option>
+                                                <?php
+                                                require_once("$_SERVER[DOCUMENT_ROOT]/ProjectSE/controller/technologyHandler.class.php");
+                                                $techHandler=new technologyHandler();
+                                                $techList=$techHandler->getTechList();
+                                                foreach($techList as $tech){
+                                                    echo "<option value='".$tech["TechId"]."'>".$tech["Description"]."</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <button type="submit" class="btn btn-default" name="userSubmit">Submit</button>

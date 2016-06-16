@@ -48,4 +48,16 @@ class technologyDb
             return null;
         }
     }
+    public function getTechList(){
+        $dbHandler=new dbHandler();
+        $connection=$dbHandler->getConnection();
+        $query="SELECT * FROM technology";
+        $tech_set=mysqli_query($connection,$query);
+        confirm_query($tech_set);
+        $techList=array();
+        while ($row = mysqli_fetch_assoc($tech_set)) {
+            array_push($techList,$row);
+        }
+        return $techList;
+    }
 }

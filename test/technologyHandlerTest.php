@@ -13,4 +13,9 @@ class technologyHandlerTest extends PHPUnit_Framework_TestCase
         $tech=$technologyHandler->findTechnology("Test");
         $this->assertEquals(null,$tech);
     }
+    public function testGetTechList(){
+        $technologyHandler=new technologyHandler();
+        $techList=$technologyHandler->getTechList();
+        $this->assertEquals("Test",$techList[0]["Description"]);
+    }
 }
