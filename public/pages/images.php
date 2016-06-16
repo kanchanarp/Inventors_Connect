@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start();
+<?php
+if(session_status() !== PHP_SESSION_ACTIVE){
+    session_start();
+}
+if(!isset($_SESSION["User"])){
+    header("Location:login.php");
+}
 ?>
 <head>
 
