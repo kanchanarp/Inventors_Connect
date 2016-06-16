@@ -198,7 +198,7 @@ session_start();
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Posts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="posts.html">User Posts</a>
+                                    <a href="posts.php">User Posts</a>
                                 </li>
                                 <li>
                                     <a href="savedPosts.php">Saved Posts</a>
@@ -304,19 +304,17 @@ session_start();
                         <div class="panel-body">
                             <ul class="timeline">
                                 <script type='text/javascript'>
-								function setDiscussion(var dis_id,var subject,var desc){
-									alert(subject);
-                                        document.getElementById('postid').attrs('value',dis_id);
-                                        document.getElementById('subject').value=subject;
-                                        document.getElementById('discussion').attrs('value',subject);
-										alert(subject+" "+document.getElementById('subject').value);
+								function setDiscussion(post_id,subject_val,desc){
+                                        $('#postid').val(post_id);
+                                        $('#subject').val(subject_val);
+                                        $('#discussion').val(desc);
                                 }
                                 </script>
                                 <?php
                                 include_once "../control/postControl.php";
                                     $list=getAllPosts();
                                     foreach($list as $li){
-										//echo "setDiscussion(\"".$li["DiscussionId"]."\",\"".$li["Subject"]."\",\"".$li["Description"]."\");";
+										//echo "setDiscussion(".$li["DiscussionId"].",".$li["Subject"].",".$li["Description"].");";
                                         echo "
                                         <li>
                                             <div class=\"timeline-badge\"><i class=\"fa fa-check\"></i>
@@ -333,7 +331,7 @@ session_start();
                                                             <i class=\"fa fa-gear\"></i>  <span class=\"caret\"></span>
                                                         </button>
                                                         <ul class=\"dropdown-menu\" role=\"menu\">
-                                                            <li><a href=\"javascript:;\" onClick=\"setDiscussion(\"".$li["DiscussionId"]."\",\"".$li["Subject"]."\",\"".$li["Description"]."\");\">Edit</a>
+                                                            <li><a href=\"javascript:;\" onClick=\"setDiscussion('".$li["DiscussionId"]."','".$li["Subject"]."','".$li["Description"]."'); \">Edit</a>
                                                             </li>
                                                             <li><a href=\"#\">Delete</a>
                                                             </li>
