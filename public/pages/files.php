@@ -323,7 +323,7 @@ session_start();
                         <i class="fa fa-clock-o fa-fw"></i> Your Files
                     </div>
                     <!-- /.panel-heading -->
-                    <div class="panel-body">
+                    <div class="panel-body" id="fileView">
 					<div id="results" class="hidden"></div>
 					<div id="pdf"></div>
 					<div class="dataTable_wrapper">
@@ -425,6 +425,11 @@ session_start();
         //progress completed load event
         request.addEventListener('load',function(e){
             $form.find('.progress-bar').addClass('progress-bar-success').html('upload completed....');
+            $("#fileView").load(location.href + " #fileView");
+            $form.each(function(){
+                    this.reset();
+                }
+            );
         });
 
         request.open('post', "../control/fileControl.php");

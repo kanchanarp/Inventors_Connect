@@ -303,7 +303,7 @@
                             <i class="fa fa-clock-o fa-fw"></i> Your Images
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
+                        <div class="panel-body" id="imageGallery">
 						<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
 							<!-- The container for the modal slides -->
 							<div class="slides"></div>
@@ -416,6 +416,11 @@
             //progress completed load event
             request.addEventListener('load',function(e){
                 $form.find('.progress-bar').addClass('progress-bar-success').html('upload completed....');
+                $("#imageGallery").load(location.href + " #imageGallery");
+                $form.each(function(){
+                    this.reset();
+                }
+                );
             });
 
             request.open('post', "../control/imageControl.php");
