@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR);
 include_once "../../controller/discussionHandler.class.php";
 include_once "../../controller/userHadler.class.php";
 if (session_status() == PHP_SESSION_NONE) {
